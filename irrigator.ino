@@ -7,10 +7,13 @@ const int wet_val = 206;
 int moist_val = 0;
 int moist_percent = 0;
 
+#define RELAY 2
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   lcd.begin(16, 2);
+  pinMode(RELAY, OUTPUT);
 }
 
 void loop() {
@@ -34,6 +37,17 @@ void loop() {
   lcd.setCursor(0, 1);
   lcd.print(moist_percent);
   lcd.print(" %");
+
+  if (moist_percent < 50)
+  {
+    digitalWrite(RELAY, HIGH);
+    Serial.println("HIGH");
+  }
+  else
+  {
+    digitalWrite(RELAY, LOW);
+    Serial.println("LOW");
+  }
 
   delay(250);
 
